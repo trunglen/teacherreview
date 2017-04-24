@@ -1,0 +1,34 @@
+﻿@model TeacherQualityReview.Models.Class
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Quản lí lớp</h2>
+
+<div>
+    <h4>Chi tiết</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Tên khoa
+        </dt>
+
+        <dd>
+            @ViewBag.DepartmentName
+        </dd>
+
+        <dt>
+            Tên lớp
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClassName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Sửa", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Danh sách lớp", "Index")
+</p>
