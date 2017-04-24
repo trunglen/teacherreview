@@ -121,6 +121,7 @@
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NavbarController.cs" />
+    <Compile Include="Controllers\SubgroupController.cs" />
     <Compile Include="Controllers\SubjectController.cs" />
     <Compile Include="Domain\Data.cs" />
     <Compile Include="Global.asax.cs">
@@ -939,6 +940,11 @@
     <Content Include="Views\Subject\Details.cshtml" />
     <Content Include="Views\Subject\Edit.cshtml" />
     <Content Include="Views\Subject\Index.cshtml" />
+    <Content Include="Views\Subgroup\Create.cshtml" />
+    <Content Include="Views\Subgroup\Delete.cshtml" />
+    <Content Include="Views\Subgroup\Details.cshtml" />
+    <Content Include="Views\Subgroup\Edit.cshtml" />
+    <Content Include="Views\Subgroup\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

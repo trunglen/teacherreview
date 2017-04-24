@@ -11,13 +11,14 @@ namespace TeacherQualityReview.Domain
         public IEnumerable<Navbar> navbarItems()
         {
             var menu = new List<Navbar>();
-            menu.Add(new Navbar { Id = 1, nameOption = "Dashboard", controller = "Home", action = "Index", imageClass = "fa fa-dashboard fa-fw", status = true, isParent = false, parentId = 0 });
+            menu.Add(new Navbar { Id = 1, nameOption = "Quản lí khoa", controller = "department", action = "Index", imageClass = "fa fa-dashboard fa-fw", status = true, isParent = false, parentId = 0 });
             menu.Add(new Navbar { Id = 2, nameOption = "Charts", imageClass = "fa fa-bar-chart-o fa-fw", status = true, isParent = true, parentId = 0 });
             menu.Add(new Navbar { Id = 3, nameOption = "Flot Charts", controller = "Home", action = "FlotCharts", status = true, isParent = false, parentId = 2 });
             menu.Add(new Navbar { Id = 4, nameOption = "Morris.js Charts", controller = "Home", action = "MorrisCharts", status = true, isParent = false, parentId = 2 });
-            menu.Add(new Navbar { Id = 5, nameOption = "Tables", controller = "Home", action = "Tables", imageClass = "fa fa-table fa-fw", status = true, isParent = false, parentId = 0 });
-            menu.Add(new Navbar { Id = 6, nameOption = "Forms", controller = "Home", action = "Forms", imageClass = "fa fa-edit fa-fw", status = true, isParent = false, parentId = 0 });
-            menu.Add(new Navbar { Id = 7, nameOption = "UI Elements", imageClass = "fa fa-wrench fa-fw", status = true, isParent = true, parentId = 0 });
+            menu.Add(new Navbar { Id = 5, nameOption = "Quản lí lớp", controller = "class", action = "Index", imageClass = "fa fa-table fa-fw", status = true, isParent = false, parentId = 0 });
+            menu.Add(new Navbar { Id = 6, nameOption = "Quản lí môn", controller = "subject", action = "Index", imageClass = "fa fa-edit fa-fw", status = true, isParent = false, parentId = 0 });
+			menu.Add(new Navbar { Id = 6, nameOption = "Quản lí bộ môn", controller = "subgroup", action = "Index", imageClass = "fa fa-edit fa-fw", status = true, isParent = false, parentId = 0 });
+		   menu.Add(new Navbar { Id = 7, nameOption = "UI Elements", imageClass = "fa fa-wrench fa-fw", status = true, isParent = true, parentId = 0 });
             menu.Add(new Navbar { Id = 8, nameOption = "Panels and Wells", controller = "Home", action = "Panels", status = true, isParent = false, parentId = 7 });
             menu.Add(new Navbar { Id = 9, nameOption = "Buttons", controller = "Home", action = "Buttons", status = true, isParent = false, parentId = 7 });
             menu.Add(new Navbar { Id = 10, nameOption = "Notifications", controller = "Home", action = "Notifications", status = true, isParent = false, parentId = 7 });

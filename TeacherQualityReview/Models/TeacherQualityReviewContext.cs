@@ -26,6 +26,8 @@ namespace TeacherQualityReview.Models
         public System.Data.Entity.DbSet<TeacherQualityReview.Models.Department> Departments { get; set; }
 
         public System.Data.Entity.DbSet<TeacherQualityReview.Models.Subject> Subjects { get; set; }
+
+        public System.Data.Entity.DbSet<TeacherQualityReview.Models.Subgroup> Subgroups { get; set; }
     
     }
 }
