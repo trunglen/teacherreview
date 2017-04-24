@@ -10,112 +10,107 @@ using TeacherQualityReview.Models;
 
 namespace TeacherQualityReview.Controllers
 {
-    public class StudentController : Controller
+    public class StatusController : Controller
     {
         private TeacherQualityReviewContext db = new TeacherQualityReviewContext();
 
-        // GET: /Student/
+        // GET: /Status/
         public ActionResult Index()
         {
-            var students = db.Students.Include(s => s.Class);
-            return View(students.ToList());
+            return View(db.Status.ToList());
         }
 
-        // GET: /Student/Details/5
-        public ActionResult Details(string id)
+        // GET: /Status/Details/5
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Student student = db.Students.Find(id);
-            if (student == null)
+            Status status = db.Status.Find(id);
+            if (status == null)
             {
                 return HttpNotFound();
             }
-            return View(student);
+            return View(status);
         }
 
-        // GET: /Student/Create
+        // GET: /Status/Create
         public ActionResult Create()
         {
-            ViewBag.ClassID =db.Classes;
             return View();
         }
 
-        // POST: /Student/Create
+        // POST: /Status/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="ID,UserName,Password,Name,DateOfBirth,ClassID")] Student student)
+        public ActionResult Create([Bind(Include="ID,Point,Content")] Status status)
         {
             if (ModelState.IsValid)
             {
-                db.Students.Add(student);
+                db.Status.Add(status);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ClassID = new SelectList(db.Classes, "ID", "ClassName", student.ClassID);
-            return View(student);
+            return View(status);
         }
 
-        // GET: /Student/Edit/5
-        public ActionResult Edit(string id)
+        // GET: /Status/Edit/5
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Student student = db.Students.Find(id);
-            if (student == null)
+            Status status = db.Status.Find(id);
+            if (status == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.ClassID = db.Classes;
-            return View(student);
+            return View(status);
         }
 
-        // POST: /Student/Edit/5
+        // POST: /Status/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="ID,UserName,Password,Name,DateOfBirth,ClassID")] Student student)
+        public ActionResult Edit([Bind(Include="ID,Point,Content")] Status status)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(student).State = EntityState.Modified;
+                db.Entry(status).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.ClassID = new SelectList(db.Classes, "ID", "ClassName", student.ClassID);
-            return View(student);
+            return View(status);
         }
 
-        // GET: /Student/Delete/5
-        public ActionResult Delete(string id)
+        // GET: /Status/Delete/5
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Student student = db.Students.Find(id);
-            if (student == null)
+            Status status = db.Status.Find(id);
+            if (status == null)
             {
                 return HttpNotFound();
             }
-            return View(student);
+            return View(status);
         }
 
-        // POST: /Student/Delete/5
+        // POST: /Status/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(int id)
         {
-            Student student = db.Students.Find(id);
-            db.Students.Remove(student);
+            Status status = db.Status.Find(id);
+            db.Status.Remove(status);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -127,11 +122,6 @@ namespace TeacherQualityReview.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        public ActionResult Review()
-        {
-            return View();
         }
     }
 }

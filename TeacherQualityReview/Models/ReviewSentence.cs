@@ -17,5 +17,8 @@ namespace TeacherQualityReview.Models
          public int StatusID{ get; set; }
          [ForeignKey("StatusID")]
          public Status Status { get; set; }
+         public string SubjectID{ get; set; }
+         [ForeignKey("SubjectID")]
+         public Subject Subject { get; set; }
     }
 }

@@ -121,6 +121,8 @@
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NavbarController.cs" />
+    <Compile Include="Controllers\ReviewSentenceController.cs" />
+    <Compile Include="Controllers\StatusController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Controllers\SubgroupController.cs" />
     <Compile Include="Controllers\SubjectController.cs" />
@@ -171,6 +173,9 @@
     <Content Include="bower_components\bootstrap\js\tooltip.js" />
     <Content Include="bower_components\bootstrap\js\transition.js" />
     <Content Include="bower_components\bootstrap\package.js" />
+    <Content Include="bower_components\css\3-col-portfolio.css" />
+    <Content Include="bower_components\css\bootstrap.css" />
+    <Content Include="bower_components\css\bootstrap.min.css" />
     <Content Include="bower_components\datatables-plugins\api\average%28%29.js" />
     <Content Include="bower_components\datatables-plugins\api\column%28%29.title%28%29.js" />
     <Content Include="bower_components\datatables-plugins\api\columns%28%29.order%28%29.js" />
@@ -417,6 +422,7 @@
     <Content Include="bower_components\font-awesome\css\font-awesome.css" />
     <Content Include="bower_components\font-awesome\css\font-awesome.min.css" />
     <Content Include="bower_components\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="bower_components\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="bower_components\holderjs\.gitattributes" />
     <Content Include="bower_components\holderjs\.gitignore" />
     <Content Include="bower_components\holderjs\gulpfile.js" />
@@ -514,6 +520,9 @@
     <Content Include="bower_components\jquery\src\var\support.js" />
     <Content Include="bower_components\jquery\src\var\toString.js" />
     <Content Include="bower_components\jquery\src\wrap.js" />
+    <Content Include="bower_components\js\bootstrap.js" />
+    <Content Include="bower_components\js\bootstrap.min.js" />
+    <Content Include="bower_components\js\jquery.js" />
     <Content Include="bower_components\metisMenu\dist\metisMenu.css" />
     <Content Include="bower_components\metisMenu\dist\metisMenu.js" />
     <Content Include="bower_components\metisMenu\dist\metisMenu.min.css" />
@@ -573,6 +582,7 @@
     <Content Include="bower_components\raphael\license.txt" />
     <Content Include="bower_components\raphael\raphael-min.js" />
     <Content Include="bower_components\raphael\raphael.js" />
+    <Content Include="bower_components\style.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\sb-admin-2.css" />
@@ -885,6 +895,10 @@
     <Content Include="Content\less\mixins.less" />
     <Content Include="Content\less\sb-admin-2.less" />
     <Content Include="Content\less\variables.less" />
+    <Content Include="bower_components\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="bower_components\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="bower_components\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="bower_components\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\flot-data.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -951,6 +965,17 @@
     <Content Include="Views\Student\Details.cshtml" />
     <Content Include="Views\Student\Edit.cshtml" />
     <Content Include="Views\Student\Index.cshtml" />
+    <Content Include="Views\Status\Create.cshtml" />
+    <Content Include="Views\Status\Delete.cshtml" />
+    <Content Include="Views\Status\Details.cshtml" />
+    <Content Include="Views\Status\Edit.cshtml" />
+    <Content Include="Views\Status\Index.cshtml" />
+    <Content Include="Views\ReviewSentence\Create.cshtml" />
+    <Content Include="Views\ReviewSentence\Delete.cshtml" />
+    <Content Include="Views\ReviewSentence\Details.cshtml" />
+    <Content Include="Views\ReviewSentence\Edit.cshtml" />
+    <Content Include="Views\ReviewSentence\Index.cshtml" />
+    <Content Include="Views\Student\Review.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

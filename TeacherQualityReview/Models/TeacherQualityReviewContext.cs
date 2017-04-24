@@ -28,6 +28,10 @@ namespace TeacherQualityReview.Models
         public System.Data.Entity.DbSet<TeacherQualityReview.Models.Subject> Subjects { get; set; }
 
         public System.Data.Entity.DbSet<TeacherQualityReview.Models.Subgroup> Subgroups { get; set; }
+
+        public System.Data.Entity.DbSet<TeacherQualityReview.Models.Status> Status { get; set; }
+
+        public System.Data.Entity.DbSet<TeacherQualityReview.Models.ReviewSentence> ReviewSentences { get; set; }
     
     }
 }
