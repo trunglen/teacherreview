@@ -4,18 +4,18 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Quản lí bộ môn</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Tạo mới", "Create", null, new { @class = "btn btn-primary" })
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Department.DepartmentName)
+            Tên khoa
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SubgroupName)
+           Tên bộ môn
         </th>
         <th></th>
     </tr>
@@ -29,9 +29,8 @@
             @Html.DisplayFor(modelItem => item.SubgroupName)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Sửa", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Xóa", "Delete", new { id=item.ID })
         </td>
     </tr>
 }

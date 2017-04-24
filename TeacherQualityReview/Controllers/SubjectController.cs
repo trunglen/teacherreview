@@ -73,7 +73,7 @@ namespace TeacherQualityReview.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.DepartmentID = new SelectList(db.Departments, "ID", "DepartmentName", subject.DepartmentID);
+            ViewBag.DepartmentID = db.Departments;
             return View(subject);
         }
 

@@ -39,7 +39,7 @@ namespace TeacherQualityReview.Controllers
         // GET: /Subgroup/Create
         public ActionResult Create()
         {
-            ViewBag.DepartmentID = new SelectList(db.Departments, "ID", "DepartmentName");
+            ViewBag.DepartmentID = db.Departments;
             return View();
         }
 
@@ -57,7 +57,7 @@ namespace TeacherQualityReview.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.DepartmentID = new SelectList(db.Departments, "ID", "DepartmentName", subgroup.DepartmentID);
+            ViewBag.DepartmentID =db.Departments;
             return View(subgroup);
         }
 
@@ -73,7 +73,7 @@ namespace TeacherQualityReview.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.DepartmentID = new SelectList(db.Departments, "ID", "DepartmentName", subgroup.DepartmentID);
+            ViewBag.DepartmentID = ViewBag.DepartmentID = db.Departments;
             return View(subgroup);
         }
 

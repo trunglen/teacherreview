@@ -19,7 +19,7 @@
         <div class="form-group">
             @Html.Label("Mã khoa", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ID)
+                @Html.TextBoxFor(model => model.ID, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.ID)
             </div>
         </div>
@@ -27,7 +27,7 @@
         <div class="form-group">
             @Html.Label("Tên khoa", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.DepartmentName)
+                @Html.TextBoxFor(model => model.DepartmentName, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.DepartmentName)
             </div>
         </div>

@@ -1,0 +1,56 @@
+﻿@model IEnumerable<TeacherQualityReview.Models.Student>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Quản lí sinh viên</h2>
+
+<p>
+    @Html.ActionLink("Tạo mới", "Create", null, new { @class = "btn btn-primary" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Tên Lớp
+        </th>
+        <th>
+            Tên đăng nhập
+        </th>
+        <th>
+            Mật khẩu
+        </th>
+        <th>
+           Họ tên
+        </th>
+        <th>
+            Ngày sinh
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Class.ClassName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Password)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateOfBirth)
+        </td>
+        <td>
+            @Html.ActionLink("Sửa", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Xóa", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>
