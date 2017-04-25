@@ -131,7 +131,33 @@ namespace TeacherQualityReview.Controllers
 
         public ActionResult Review()
         {
+            if (Session["user"] != null)
+            {
+                
+                var temp = Session["user"].ToString();
+                var student = db.Students.Where(c => c.UserName.Equals(temp)).SingleOrDefault();
+                ViewBag.Students = db.StudentClasses.Where(s => s.StudentID == student.ID).ToList();
+                ViewBag.Subjects = db.Subjects;
+            }      
             return View();
         }
+        public ActionResult ReviewDetail(string id)
+        {
+            ViewBag.Reviews = db.ReviewSentences.Where(c=>c.SubjectID.Equals(id)).ToList();
+            ViewBag.ReviewStatus = db.Status.ToList();
+
+            return View();
+        }
+        public ActionResult Login(string user, string pass)
+        {
+            
+            if (db.Students.Where(s => s.UserName.Equals(user) && s.Password.Equals(pass)).SingleOrDefault()!=null)
+            {
+                Session["user"] = user;
+                Session["pass"] = pass;
+            }
+            return RedirectToAction("Review");      
+        }
+       
     }
 }
