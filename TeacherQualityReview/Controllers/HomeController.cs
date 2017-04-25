@@ -10,8 +10,13 @@ namespace TeacherQualityReview.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            if (Session["username"] != null)
+            {
+                return View();
+            }
+            return RedirectToAction("Login");
         }
+
 
         public ActionResult FlotCharts()
         {
@@ -70,7 +75,24 @@ namespace TeacherQualityReview.Controllers
 
         public ActionResult Login()
         {
+            Session["msg"] = "";
             return View("Login");
+        }
+        [HttpPost]
+        public ActionResult Login(string username, string password)
+        {
+            if (username.Equals("admin") && password.Equals("admin@123"))
+            {
+                Session["username"] = "admin";
+                return RedirectToAction("Index");
+            }
+            Session["msg"] = "Tài khoản đăng nhập không chính xác";
+            return View("Login");
+        }
+        public ActionResult Logout()
+        {
+            Session["username"] = null;
+            return RedirectToAction("Login");
         }
 
     }

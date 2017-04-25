@@ -16,5 +16,8 @@ namespace TeacherQualityReview.Models
         public string DepartmentID { get; set; }
         [ForeignKey("DepartmentID")]
         public Department Department { get; set; }
+        public string TeacherID { get; set; }
+        [ForeignKey("TeacherID")]
+        public Teacher Teacher { get; set; }
     }
 }

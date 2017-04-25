@@ -16,5 +16,6 @@ namespace TeacherQualityReview.Models
         public string SubgroupID { get; set; }
         [ForeignKey("SubgroupID")]
         public Subgroup Subgroup { get; set; }
+        public ICollection<Subject> Subjects { get; set; }
     }
 }

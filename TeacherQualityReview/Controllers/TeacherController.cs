@@ -10,114 +10,112 @@ using TeacherQualityReview.Models;
 
 namespace TeacherQualityReview.Controllers
 {
-    public class SubjectController : Controller
+    public class TeacherController : Controller
     {
         private TeacherQualityReviewContext db = new TeacherQualityReviewContext();
 
-        // GET: /Subject/
+        // GET: /Teacher/
         public ActionResult Index()
         {
-            var subjects = db.Subjects.Include(s => s.Department);
-            return View(subjects.ToList());
+            var teachers = db.Teachers.Include(t => t.Subgroup);
+            return View(teachers.ToList());
         }
 
-        // GET: /Subject/Details/5
+        // GET: /Teacher/Details/5
         public ActionResult Details(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Subject subject = db.Subjects.Find(id);
-            if (subject == null)
+            Teacher teacher = db.Teachers.Find(id);
+            if (teacher == null)
             {
                 return HttpNotFound();
             }
-            return View(subject);
+            return View(teacher);
         }
 
-        // GET: /Subject/Create
+        // GET: /Teacher/Create
         public ActionResult Create()
         {
-            ViewBag.DepartmentID = db.Departments;
-            ViewBag.TeacherID = db.Teachers;
+            ViewBag.SubgroupID = db.Subgroups;
             return View();
         }
 
-        // POST: /Subject/Create
+        // POST: /Teacher/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="ID,SubjectName,DepartmentID,TeacherID")] Subject subject)
+        public ActionResult Create([Bind(Include="ID,TeacherName,SubgroupID")] Teacher teacher)
         {
             if (ModelState.IsValid)
             {
-                db.Subjects.Add(subject);
+                db.Teachers.Add(teacher);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.DepartmentID = new SelectList(db.Departments, "ID", "DepartmentName", subject.DepartmentID);
-            ViewBag.TeacherID =  new SelectList(db.Teachers, "ID", "TeacherName", subject.TeacherID);
-            return View(subject);
+            ViewBag.SubgroupID = new SelectList(db.Subgroups, "ID", "SubgroupName", teacher.SubgroupID);
+            return View(teacher);
         }
 
-        // GET: /Subject/Edit/5
+        // GET: /Teacher/Edit/5
         public ActionResult Edit(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Subject subject = db.Subjects.Find(id);
-            if (subject == null)
+            Teacher teacher = db.Teachers.Find(id);
+            if (teacher == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.DepartmentID = db.Departments;
-            return View(subject);
+            ViewBag.SubgroupID = db.Subgroups;
+            return View(teacher);
         }
 
-        // POST: /Subject/Edit/5
+        // POST: /Teacher/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="ID,SubjectName,DepartmentID")] Subject subject)
+        public ActionResult Edit([Bind(Include="ID,TeacherName,SubgroupID")] Teacher teacher)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(subject).State = EntityState.Modified;
+                db.Entry(teacher).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.DepartmentID = new SelectList(db.Departments, "ID", "DepartmentName", subject.DepartmentID);
-            return View(subject);
+            ViewBag.SubgroupID = new SelectList(db.Subgroups, "ID", "SubgroupName", teacher.SubgroupID);
+            return View(teacher);
         }
 
-        // GET: /Subject/Delete/5
+        // GET: /Teacher/Delete/5
         public ActionResult Delete(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Subject subject = db.Subjects.Find(id);
-            if (subject == null)
+            Teacher teacher = db.Teachers.Find(id);
+            if (teacher == null)
             {
                 return HttpNotFound();
             }
-            return View(subject);
+            return View(teacher);
         }
 
-        // POST: /Subject/Delete/5
+        // POST: /Teacher/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            Subject subject = db.Subjects.Find(id);
-            db.Subjects.Remove(subject);
+            Teacher teacher = db.Teachers.Find(id);
+            db.Teachers.Remove(teacher);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
