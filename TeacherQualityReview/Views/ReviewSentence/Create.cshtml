@@ -11,7 +11,7 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
+    <div class="form-horizontal frmSubject">
         <h4>Tạo đánh giá</h4>
         <hr />
         @Html.ValidationSummary(true)
@@ -21,68 +21,44 @@
                 <div class="form-group">
                     @Html.Label("Môn học", new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.DropDownList("SubjectID", new SelectList(ViewBag.SubjectID, "ID", "SubjectName"), new { @class = "form-control" })
+                        @Html.DropDownList("SubjectID", new SelectList(ViewBag.SubjectID, "ID", "SubjectName"), new { @class = "form-control subject" })
                         @Html.ValidationMessageFor(model => model.SubjectID)
+                        <br />
+                        <button class="btn btn-primary view">Xem nội dung đánh giá</button>
                     </div>
-                </div>
                 </div>
             </div>
-    @{
-    var i = 1;
-    }        
-@foreach (var item in ViewBag.ReviewSentences)
-{
-    
-    <div class="panel panel-default">
-                    <div class="panel-heading">Câu @i</div>
-                    <div class="panel-body">
-                        <div class="form-group">
-                            @Html.Label("Mã trạng thái", new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                              @ViewBag.StatusID.Find(item.StatusID).Content
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.Label("Nội dung đánh giá", new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                               @item.Content
-                            </div>
-                        </div>
-                    </div>
-                </div>
-    i++;
+        </div>
+    </div>
 }
-                <div class="panel panel-default">
-                    <div class="panel-heading">Câu @(ViewBag.ReviewSentences.Count+1)</div>
-                    <div class="panel-body">
-                        <div class="form-group">
-                            @Html.Label("Mã trạng thái", new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.DropDownList("StatusID", new SelectList(ViewBag.StatusID, "ID", "Point"), new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.StatusID)
-                            </div>
-                        </div>
+<div id="generate"></div>
 
-                        <div class="form-group">
-                            @Html.Label("Nội dung đánh giá", new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.TextAreaFor(model => model.Content, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Content)
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Taọ" class="btn btn-default" />
-                    </div>
-                </div>
+<div class="panel panel-default">
+    <div class="panel-heading">Tạo đánh giá mới</div>
+    <div class="panel-body">
+        <div class="form-group">
+            @Html.Label("Mã trạng thái", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("StatusID", new SelectList(ViewBag.StatusID, "ID", "Content"), new { @class = "form-control slStatus" })
+                @Html.ValidationMessageFor(model => model.StatusID)
             </div>
-            }
+        </div>
 
+        <div class="form-group">
+            @Html.Label("Nội dung đánh giá", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Content, new { @class = "form-control txtContent" })
+                @Html.ValidationMessageFor(model => model.Content)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="button" value="Taọ" class="btn btn-default btnCreate" />
+            </div>
+        </div>
+    </div>
+</div>
             <div>
                 @Html.ActionLink("Danh sách", "Index")
             </div>
@@ -90,3 +66,46 @@
             @section Scripts {
                 @Scripts.Render("~/bundles/jqueryval")
             }
+<script type="text/javascript">
+    function load() {
+        event.preventDefault();
+        console.log($('.subject').val());
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("ListAjax", "reviewsentence")',
+            data: { id: $('.subject').val() },
+            datatype: "json",  // refer notes below
+            success: function (data) {
+                var html = '';
+                data.forEach(function (item, index) {
+                    console.log(item);
+                    html += '<div class="panel panel-default"><div class="panel-heading">Câu ' + (index + 1) + '</div><div class="panel-body"> <div class="form-group"> <span class="control-label col-md-2">Nội dung đánh giá</span> <div class="col-md-10"> ' + item.Content + ' </div></div></div></div>';
+
+                });
+                $('#generate').html(html);
+
+            }
+        });
+    }
+    $('.view').click(function (event) {
+        load();
+    });
+    $('.btnCreate').click(function () {
+        event.preventDefault();
+        console.log($('.subject').val());
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("CreateReview", "reviewsentence")',
+            data: {
+                StatusID: $('.slStatus').val(),
+                SubjectID: $('.subject').val(),
+                Content: $('.txtContent').val(),
+            },
+            datatype: "json",  // refer notes below
+            success: function (data) {
+                load();
+
+            }
+        });
+    });
+</script>

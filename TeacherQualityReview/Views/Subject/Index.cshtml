@@ -12,7 +12,7 @@
 <table class="table">
     <tr>
         <th>
-           Tên khoa
+           Tên giảng viên
         </th>
         <th>
             Tên môn
@@ -23,7 +23,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Department.DepartmentName)
+            @Html.DisplayFor(modelItem => item.Teacher.TeacherName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.SubjectName)

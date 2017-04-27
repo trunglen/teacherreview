@@ -1,0 +1,46 @@
+﻿@model IEnumerable<TeacherQualityReview.Models.Result>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Kết quả đánh giá</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            Nội dung đánh giá
+        </th>
+        <th>
+            Sinh viên
+        </th>
+        <th>
+            Môn học
+        </th>
+        <th>
+            Điểm đánh giá
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReviewSentence.Content)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Student.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Subject.SubjectName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Res)
+        </td>
+        <td>
+        </td>
+    </tr>
+}
+
+</table>

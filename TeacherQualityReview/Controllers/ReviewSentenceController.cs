@@ -76,8 +76,8 @@ namespace TeacherQualityReview.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.StatusID = new SelectList(db.Status, "ID", "Point", reviewsentence.StatusID);
-            ViewBag.SubjectID = new SelectList(db.Subjects, "ID", "SubjectName", reviewsentence.SubjectID);
+            ViewBag.StatusID = db.Status;
+            ViewBag.SubjectID = db.Subjects;
             return View(reviewsentence);
         }
 
@@ -132,6 +132,22 @@ namespace TeacherQualityReview.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        [HttpPost]
+        public JsonResult ListAjax(string id)
+        {
+            return Json(db.ReviewSentences.Where(c=>c.SubjectID==id).ToList(), JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult CreateReview(string Content,int StatusID,string SubjectID)
+        {
+            ReviewSentence rs = new ReviewSentence();
+            rs.StatusID = StatusID;
+            rs.SubjectID = SubjectID;
+            rs.Content = Content;
+            db.ReviewSentences.Add(rs);
+            db.SaveChanges();
+            return Json("OK", JsonRequestBehavior.AllowGet);
         }
     }
 }

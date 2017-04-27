@@ -13,11 +13,12 @@ namespace TeacherQualityReview.Models
         public string ID { get; set; }
         [Required(ErrorMessage = "Nhập tên môn học")]
         public string SubjectName { get; set; }
-        public string DepartmentID { get; set; }
-        [ForeignKey("DepartmentID")]
-        public Department Department { get; set; }
         public string TeacherID { get; set; }
         [ForeignKey("TeacherID")]
         public Teacher Teacher { get; set; }
+
+        public string SubgroupID { get; set; }
+        [ForeignKey("SubgroupID")]
+        public Subgroup Subgroup { get; set; }
     }
 }

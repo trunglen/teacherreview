@@ -17,7 +17,7 @@ namespace TeacherQualityReview.Controllers
         // GET: /Subject/
         public ActionResult Index()
         {
-            var subjects = db.Subjects.Include(s => s.Department);
+            var subjects = db.Subjects.Include(s => s.Teacher);
             return View(subjects.ToList());
         }
 
@@ -39,8 +39,8 @@ namespace TeacherQualityReview.Controllers
         // GET: /Subject/Create
         public ActionResult Create()
         {
-            ViewBag.DepartmentID = db.Departments;
             ViewBag.TeacherID = db.Teachers;
+            ViewBag.SubgroupID = db.Subgroups;
             return View();
         }
 
@@ -49,7 +49,7 @@ namespace TeacherQualityReview.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="ID,SubjectName,DepartmentID,TeacherID")] Subject subject)
+        public ActionResult Create([Bind(Include = "ID,SubjectName,TeacherID, SubgroupID")] Subject subject)
         {
             if (ModelState.IsValid)
             {
@@ -58,8 +58,8 @@ namespace TeacherQualityReview.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.DepartmentID = new SelectList(db.Departments, "ID", "DepartmentName", subject.DepartmentID);
             ViewBag.TeacherID =  new SelectList(db.Teachers, "ID", "TeacherName", subject.TeacherID);
+            ViewBag.TeacherID = new SelectList(db.Subgroups, "ID", "SubgroupName", subject.TeacherID);
             return View(subject);
         }
 
@@ -75,7 +75,8 @@ namespace TeacherQualityReview.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.DepartmentID = db.Departments;
+            ViewBag.TeacherID = db.Teachers;
+            ViewBag.SubgroupID = db.Subgroups;
             return View(subject);
         }
 
@@ -84,7 +85,7 @@ namespace TeacherQualityReview.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="ID,SubjectName,DepartmentID")] Subject subject)
+        public ActionResult Edit([Bind(Include = "ID,SubjectName,TeacherID,SubgroupID")] Subject subject)
         {
             if (ModelState.IsValid)
             {
@@ -92,7 +93,8 @@ namespace TeacherQualityReview.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.DepartmentID = new SelectList(db.Departments, "ID", "DepartmentName", subject.DepartmentID);
+            ViewBag.TeacherID = new SelectList(db.Teachers, "ID", "TeacherName", subject.TeacherID);
+            ViewBag.SubgroupID = new SelectList(db.Subgroups, "ID", "SubgroupName", subject.SubgroupID);
             return View(subject);
         }
 

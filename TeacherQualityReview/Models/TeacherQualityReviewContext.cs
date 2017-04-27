@@ -36,6 +36,8 @@ namespace TeacherQualityReview.Models
         public System.Data.Entity.DbSet<TeacherQualityReview.Models.StudentClass> StudentClasses { get; set; }
 
         public System.Data.Entity.DbSet<TeacherQualityReview.Models.Teacher> Teachers { get; set; }
+
+        public System.Data.Entity.DbSet<TeacherQualityReview.Models.Result> Results { get; set; }
     
     }
 }

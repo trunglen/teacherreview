@@ -18,7 +18,7 @@
         @Html.HiddenFor(model => model.ID)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.SubjectName, new { @class = "control-label col-md-2" })
+            @Html.Label("Tên bộ môn", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.TextBoxFor(model => model.SubjectName, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.SubjectName)
@@ -26,13 +26,19 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.DepartmentID, "DepartmentID", new { @class = "control-label col-md-2" })
+            @Html.Label("Giảng viên",  new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("DepartmentID", new SelectList(ViewBag.DepartmentID, "ID", "DepartmentName"), new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.DepartmentID)
+                @Html.DropDownList("TeacherID", new SelectList(ViewBag.TeacherID, "ID", "TeacherName"), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TeacherID)
             </div>
         </div>
-
+        <div class="form-group">
+            @Html.Label("Bộ môn", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("SubgroupID", new SelectList(ViewBag.SubgroupID, "ID", "SubgroupName"), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SubgroupID)
+            </div>
+        </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Lưu" class="btn btn-default" />

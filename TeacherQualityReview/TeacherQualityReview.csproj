@@ -121,6 +121,7 @@
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NavbarController.cs" />
+    <Compile Include="Controllers\ResultController.cs" />
     <Compile Include="Controllers\ReviewSentenceController.cs" />
     <Compile Include="Controllers\StatusController.cs" />
     <Compile Include="Controllers\StudentClassController.cs" />
@@ -135,6 +136,7 @@
     <Compile Include="Models\Class.cs" />
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\Navbar.cs" />
+    <Compile Include="Models\Result.cs" />
     <Compile Include="Models\Review.cs" />
     <Compile Include="Models\ReviewSentence.cs" />
     <Compile Include="Models\Status.cs" />
@@ -991,6 +993,11 @@
     <Content Include="Views\Teacher\Details.cshtml" />
     <Content Include="Views\Teacher\Edit.cshtml" />
     <Content Include="Views\Teacher\Index.cshtml" />
+    <Content Include="Views\Result\Create.cshtml" />
+    <Content Include="Views\Result\Delete.cshtml" />
+    <Content Include="Views\Result\Details.cshtml" />
+    <Content Include="Views\Result\Edit.cshtml" />
+    <Content Include="Views\Result\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

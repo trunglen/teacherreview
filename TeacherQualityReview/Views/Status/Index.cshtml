@@ -12,13 +12,19 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Content)
+            Điểm đánh giá
+        </th>
+        <th>
+            Nội dung đánh giá
         </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Point)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.Content)
         </td>

@@ -4,7 +4,7 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
+<h2>Quản lí trạng thái đánh giá</h2>
 
 
 @using (Html.BeginForm())
@@ -12,15 +12,15 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Status</h4>
+        <h4>Sửa trạng thái đánh giá</h4>
         <hr />
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.ID)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Point, new { @class = "control-label col-md-2" })
+            @Html.Label("Điểm đánh giá", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Point)
+                @Html.TextBoxFor(model => model.Point, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Point)
             </div>
         </div>
@@ -28,7 +28,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Content, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Content)
+                @Html.TextBoxFor(model => model.Content, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Content)
             </div>
         </div>
@@ -42,7 +42,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Danh sách", "Index")
 </div>
 
 @section Scripts {

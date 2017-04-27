@@ -39,7 +39,7 @@ namespace TeacherQualityReview.Controllers
         // GET: /Student/Create
         public ActionResult Create()
         {
-            ViewBag.ClassID =db.Classes;
+            ViewBag.ClassID = db.Classes;
             return View();
         }
 
@@ -48,7 +48,7 @@ namespace TeacherQualityReview.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="ID,UserName,Password,Name,DateOfBirth,ClassID")] Student student)
+        public ActionResult Create([Bind(Include = "ID,UserName,Password,Name,DateOfBirth,ClassID")] Student student)
         {
             if (ModelState.IsValid)
             {
@@ -82,7 +82,7 @@ namespace TeacherQualityReview.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="ID,UserName,Password,Name,DateOfBirth,ClassID")] Student student)
+        public ActionResult Edit([Bind(Include = "ID,UserName,Password,Name,DateOfBirth,ClassID")] Student student)
         {
             if (ModelState.IsValid)
             {
@@ -133,31 +133,49 @@ namespace TeacherQualityReview.Controllers
         {
             if (Session["user"] != null)
             {
-                
+
                 var temp = Session["user"].ToString();
                 var student = db.Students.Where(c => c.UserName.Equals(temp)).SingleOrDefault();
                 ViewBag.Students = db.StudentClasses.Where(s => s.StudentID == student.ID).ToList();
                 ViewBag.Subjects = db.Subjects;
-            }      
+            }
             return View();
         }
         public ActionResult ReviewDetail(string id)
         {
-            ViewBag.Reviews = db.ReviewSentences.Where(c=>c.SubjectID.Equals(id)).ToList();
+           
+            var temp = db.ReviewSentences.Where(c => c.SubjectID.Equals(id)).ToList();
+            int[] sel = new int[temp.Count];
+            for (int i = 0; i < temp.Count; i++)
+            {
+                sel[i] = 1;
+            }
+
+            if (db.Results.Where(c => c.SubjectID == id).FirstOrDefault() != null)
+            {
+                var temp2 = db.Results.Where(c => c.SubjectID == id).ToList();
+                for (int i = 0; i < temp2.Count(); i++)
+                {
+                    sel[i] = temp2[i].Res;
+                }
+            }
+            ViewBag.Reviews = temp;
+            ViewBag.Selection = sel;
             ViewBag.ReviewStatus = db.Status.ToList();
 
             return View();
         }
         public ActionResult Login(string user, string pass)
         {
-            
-            if (db.Students.Where(s => s.UserName.Equals(user) && s.Password.Equals(pass)).SingleOrDefault()!=null)
+            var temp = db.Students.Where(s => s.UserName.Equals(user) && s.Password.Equals(pass)).SingleOrDefault();
+            if (temp != null)
             {
+                Session["user_id"] = temp.ID;
                 Session["user"] = user;
                 Session["pass"] = pass;
             }
-            return RedirectToAction("Review");      
+            return RedirectToAction("Review");
         }
-       
+
     }
 }
