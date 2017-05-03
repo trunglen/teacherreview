@@ -6,15 +6,12 @@ using System.Web.Mvc;
 
 namespace TeacherQualityReview.Controllers
 {
+    [SessionAuthorize]
     public class HomeController : Controller
     {
         public ActionResult Index()
         {
-            if (Session["username"] != null)
-            {
-                return View();
-            }
-            return RedirectToAction("Login");
+            return View();
         }
 
 
@@ -92,7 +89,7 @@ namespace TeacherQualityReview.Controllers
         public ActionResult Logout()
         {
             Session["username"] = null;
-            return RedirectToAction("Login");
+            return RedirectToAction("Index","DanhGia");
         }
 
     }

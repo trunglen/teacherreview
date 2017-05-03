@@ -10,6 +10,7 @@ using TeacherQualityReview.Models;
 
 namespace TeacherQualityReview.Controllers
 {
+    [SessionAuthorize]
     public class ReviewSentenceController : Controller
     {
         private TeacherQualityReviewContext db = new TeacherQualityReviewContext();
@@ -107,11 +108,13 @@ namespace TeacherQualityReview.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             ReviewSentence reviewsentence = db.ReviewSentences.Find(id);
+            db.ReviewSentences.Remove(reviewsentence);
+            db.SaveChanges();
             if (reviewsentence == null)
             {
                 return HttpNotFound();
             }
-            return View(reviewsentence);
+            return RedirectToAction("Index");
         }
 
         // POST: /ReviewSentence/Delete/5

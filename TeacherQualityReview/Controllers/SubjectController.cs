@@ -10,6 +10,7 @@ using TeacherQualityReview.Models;
 
 namespace TeacherQualityReview.Controllers
 {
+    [SessionAuthorize]
     public class SubjectController : Controller
     {
         private TeacherQualityReviewContext db = new TeacherQualityReviewContext();
@@ -106,11 +107,13 @@ namespace TeacherQualityReview.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Subject subject = db.Subjects.Find(id);
+            db.Subjects.Remove(subject);
+            db.SaveChanges();
             if (subject == null)
             {
                 return HttpNotFound();
             }
-            return View(subject);
+            return RedirectToAction("Index");
         }
 
         // POST: /Subject/Delete/5

@@ -1,0 +1,91 @@
+﻿@model IEnumerable<TeacherQualityReview.Models.Student>
+
+@{
+    ViewBag.Title = "Student";
+}
+
+<h2>Student</h2>
+
+<p>
+    @Html.ActionLink("Tạo mới", "Add", new { id = Url.RequestContext.RouteData.Values["id"] }, new { @class = "btn btn-primary" })
+</p>
+<table class="table">
+    <tr>
+       
+        <th>
+            Tên đăng nhập
+        </th>
+        <th>
+            Mật khẩu
+        </th>
+        <th>
+            Họ Tên
+        </th>
+        <th>
+            Ngày sinh
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Password)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateOfBirth)
+        </td>
+        <td>
+            @Html.ActionLink("Sửa", "Edit","Student",new { id=item.ID },null) |
+     
+            @Html.ActionLink("Xóa",  "Delete", "Student", new { id = item.ID },null)
+        </td>
+    </tr>
+}
+
+</table>
+@using (Html.BeginForm("Upload", "Class", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken();
+    @Html.ValidationSummary();
+
+    <input type="file" class="form-control" name="uploadfile" id="uploadfile" />
+    <input type="hidden" class="form-control" name="classID" id="uploadfile" value="@Url.RequestContext.RouteData.Values["id"]" />
+    <br/>
+    <input type="submit" value="Import danh sách sinh viên từ file excel" class="btn btn-primary" />
+}
+@if (Session["msgErrorImport"] != null)
+{
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Thông báo</h4>
+                </div>
+                <div class="modal-body">
+                    <p>@Session["msgErrorImport"].</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="delete2()">Đồng ý</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+<script>
+    $(document).ready(function () {
+        $('#myModal').modal('show');
+    })
+</script>
+    Session["msgErrorImport"] = null;
+}

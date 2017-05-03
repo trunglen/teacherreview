@@ -1,38 +1,69 @@
 ﻿@model IEnumerable<TeacherQualityReview.Models.Teacher>
 
-@{
-    ViewBag.Title = "Index";
-}
+    @{
+        ViewBag.Title = "Index";
+    }
 
-<h2>Quản lí giảng viên</h2>
+    <h2>Quản lí giảng viên</h2>
 
-<p>
-    @Html.ActionLink("Tạo mới", "Create", null, new { @class = "btn btn-primary" })
-</p>
-<table class="table">
-    <tr>
-        <th>
-            Bộ môn
-        </th>
-        <th>
-            Tên giáo viên
-        </th>
-        <th></th>
-    </tr>
+    <p>
+        @Html.ActionLink("Tạo mới", "Create", null, new { @class = "btn btn-primary" })
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                Bộ môn
+            </th>
+            <th>
+                Tên giáo viên
+            </th>
+            <th></th>
+        </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Subgroup.SubgroupName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TeacherName)
-        </td>
-        <td>
-            @Html.ActionLink("Sửa", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Xóa", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Subgroup.SubgroupName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TeacherName)
+                </td>
+                <td>
+                    @Html.ActionLink("Sửa", "Edit", new { id = item.ID }) |
+                    <a href="#" onclick="delete1('@item.ID')">Xóa</a>
+                </td>
+            </tr>
+        }
 
-</table>
+    </table>
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Thông báo</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Bạn có chắc muốn xóa.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="delete2()">Đồng ý</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script>
+        function delete1(id) {
+            $('#myModal').modal('show');
+            window.id = id;
+        }
+        function delete2() {
+            window.id = id;
+            window.location.href = 'teacher/delete/' + window.id;
+        }
+    </script>

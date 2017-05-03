@@ -1,7 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Excel;
+using System;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -10,6 +11,7 @@ using TeacherQualityReview.Models;
 
 namespace TeacherQualityReview.Controllers
 {
+    [SessionAuthorize]
     public class ClassController : Controller
     {
         private TeacherQualityReviewContext db = new TeacherQualityReviewContext();
@@ -45,18 +47,31 @@ namespace TeacherQualityReview.Controllers
             ViewBag.DepartmentID = db.Departments;
             return View();
         }
-
+        
         // POST: /Class/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="ID,ClassName,DepartmentID")] Class @class)
+        public ActionResult Create([Bind(Include = "ID,ClassName,DepartmentID")] Class @class)
         {
             if (ModelState.IsValid)
             {
                 db.Classes.Add(@class);
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    if (db.Classes.Find(@class.ID) != null)
+                    {
+                        ViewBag.DepartmentID = db.Departments;
+                        Session["msgErrorExistClass"] = "Mã lớp bị trùng nhé";
+                    }
+                    return View();
+                }
+                
                 return RedirectToAction("Index");
             }
 
@@ -85,7 +100,7 @@ namespace TeacherQualityReview.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="ID,ClassName,DepartmentID")] Class @class)
+        public ActionResult Edit([Bind(Include = "ID,ClassName,DepartmentID")] Class @class)
         {
             if (ModelState.IsValid)
             {
@@ -105,11 +120,13 @@ namespace TeacherQualityReview.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Class @class = db.Classes.Find(id);
+            db.Classes.Remove(@class);
+            db.SaveChanges();
             if (@class == null)
             {
                 return HttpNotFound();
             }
-            return View(@class);
+            return RedirectToAction("Index");
         }
 
         // POST: /Class/Delete/5
@@ -131,5 +148,109 @@ namespace TeacherQualityReview.Controllers
             }
             base.Dispose(disposing);
         }
+        public ActionResult Student(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var students = db.Students.Where(c => c.ClassID == id).ToList();
+            if (students == null)
+            {
+                return HttpNotFound();
+            }
+            return View(students);
+        }
+        public ActionResult Add()
+        {
+            return View();
+        }
+
+        // POST: /Class/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Add([Bind(Include = "ID,Password,Name,DateOfBirth,ClassID")] Student student)
+        {
+            if (ModelState.IsValid)
+            {
+                student.UserName = student.ID;
+                db.Students.Add(student);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.ClassID = new SelectList(db.Classes, "ID", "ClassName", student.ClassID);
+            return View(student);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Upload(HttpPostedFileBase uploadfile, string classID)
+        {
+            if (ModelState.IsValid)
+            {
+                if (uploadfile != null && uploadfile.ContentLength > 0)
+                {
+                    //ExcelDataReader works on binary excel file
+                    Stream stream = uploadfile.InputStream;
+                    //We need to written the Interface.
+                    IExcelDataReader reader = null;
+                    if (uploadfile.FileName.EndsWith(".xls"))
+                    {
+                        //reads the excel file with .xls extension
+                        reader = ExcelReaderFactory.CreateBinaryReader(stream);
+                    }
+                    else if (uploadfile.FileName.EndsWith(".xlsx"))
+                    {
+                        //reads excel file with .xlsx extension
+                        reader = ExcelReaderFactory.CreateOpenXmlReader(stream);
+                    }
+                    else
+                    {
+                        //Shows error if uploaded file is not Excel file
+                        ModelState.AddModelError("File", "This file format is not supported");
+                        return View();
+                    }
+                    //treats the first row of excel file as Coluymn Names
+                    reader.IsFirstRowAsColumnNames = true;
+                    //Adding reader data to DataSet()
+                    DataSet result = reader.AsDataSet();
+                    reader.Close();
+                    //Sending result data to View
+                    var temp = result.Tables[0];
+
+                    foreach (DataRow row in temp.Rows)
+                    {
+                        try
+                        {
+                            var count = 0;
+                            var student = new Student();
+                            student.ClassID = classID;
+                            student.ID = row[++count].ToString();
+                            student.Password = row[++count].ToString();
+                            student.Name = row[++count].ToString();
+                            student.UserName = student.ID;
+                            var tmp = row[++count].ToString();
+                            student.DateOfBirth = DateTime.Parse(tmp);
+                            db.Students.Add(student);
+                            db.SaveChanges();
+                        }
+                        catch (Exception e)
+                        {
+                            Session["msgErrorImport"] = "Đã có lỗi xảy ra xem lại dữ liệu file excel";
+                        }
+                       
+                    }
+                    return RedirectToAction("student", new { id = classID });
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("File", "Please upload your file");
+            }
+            return RedirectToAction("student", new { id = classID });
+        }
+
     }
 }

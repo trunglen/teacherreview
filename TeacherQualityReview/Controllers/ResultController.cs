@@ -15,6 +15,7 @@ namespace TeacherQualityReview.Controllers
         public string name { get; set; }
         public string value { get; set; }
     }
+    [SessionAuthorize]
     public class ResultController : Controller
     {
         private TeacherQualityReviewContext db = new TeacherQualityReviewContext();

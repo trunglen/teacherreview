@@ -10,6 +10,7 @@ using TeacherQualityReview.Models;
 
 namespace TeacherQualityReview.Controllers
 {
+    [SessionAuthorize]
     public class StudentClassController : Controller
     {
         private TeacherQualityReviewContext db = new TeacherQualityReviewContext();

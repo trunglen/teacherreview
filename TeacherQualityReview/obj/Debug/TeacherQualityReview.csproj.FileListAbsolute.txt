@@ -28,3 +28,6 @@ c:\users\luutr\onedrive\documents\visual studio 2013\Projects\TeacherQualityRevi
 c:\users\luutr\onedrive\documents\visual studio 2013\Projects\TeacherQualityReview\TeacherQualityReview\bin\EntityFramework.SqlServer.dll
 c:\users\luutr\onedrive\documents\visual studio 2013\Projects\TeacherQualityReview\TeacherQualityReview\bin\EntityFramework.xml
 c:\users\luutr\onedrive\documents\visual studio 2013\Projects\TeacherQualityReview\TeacherQualityReview\bin\EntityFramework.SqlServer.xml
+C:\Users\luutr\onedrive\documents\visual studio 2013\Projects\TeacherQualityReview\TeacherQualityReview\bin\Excel.dll
+C:\Users\luutr\onedrive\documents\visual studio 2013\Projects\TeacherQualityReview\TeacherQualityReview\bin\ICSharpCode.SharpZipLib.dll
+C:\Users\luutr\onedrive\documents\visual studio 2013\Projects\TeacherQualityReview\TeacherQualityReview\bin\Excel.pdb

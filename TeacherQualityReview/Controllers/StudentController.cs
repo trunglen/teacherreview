@@ -10,6 +10,7 @@ using TeacherQualityReview.Models;
 
 namespace TeacherQualityReview.Controllers
 {
+    [SessionAuthorize]
     public class StudentController : Controller
     {
         private TeacherQualityReviewContext db = new TeacherQualityReviewContext();
@@ -48,10 +49,11 @@ namespace TeacherQualityReview.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,UserName,Password,Name,DateOfBirth,ClassID")] Student student)
+        public ActionResult Create([Bind(Include = "ID,Password,Name,DateOfBirth,ClassID")] Student student)
         {
             if (ModelState.IsValid)
             {
+                student.UserName = student.ID;
                 db.Students.Add(student);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -82,11 +84,12 @@ namespace TeacherQualityReview.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,UserName,Password,Name,DateOfBirth,ClassID")] Student student)
+        public ActionResult Edit([Bind(Include = "ID,Password,Name,DateOfBirth,ClassID")] Student student)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(student).State = EntityState.Modified;
+                student.UserName = student.ID;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -102,11 +105,13 @@ namespace TeacherQualityReview.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Student student = db.Students.Find(id);
+            db.Students.Remove(student);
+            db.SaveChanges();
             if (student == null)
             {
                 return HttpNotFound();
             }
-            return View(student);
+            return RedirectToAction("Index");
         }
 
         // POST: /Student/Delete/5
@@ -175,6 +180,10 @@ namespace TeacherQualityReview.Controllers
                 Session["pass"] = pass;
             }
             return RedirectToAction("Review");
+        }
+        public ActionResult Thu()
+        {  
+            return View();
         }
 
     }

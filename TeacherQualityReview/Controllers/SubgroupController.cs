@@ -10,6 +10,7 @@ using TeacherQualityReview.Models;
 
 namespace TeacherQualityReview.Controllers
 {
+    [SessionAuthorize]
     public class SubgroupController : Controller
     {
         private TeacherQualityReviewContext db = new TeacherQualityReviewContext();
@@ -102,11 +103,13 @@ namespace TeacherQualityReview.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Subgroup subgroup = db.Subgroups.Find(id);
+            db.Subgroups.Remove(subgroup);
+            db.SaveChanges();
             if (subgroup == null)
             {
                 return HttpNotFound();
             }
-            return View(subgroup);
+            return RedirectToAction("Index");
         }
 
         // POST: /Subgroup/Delete/5

@@ -10,6 +10,7 @@ using TeacherQualityReview.Models;
 
 namespace TeacherQualityReview.Controllers
 {
+    [SessionAuthorize]
     public class DepartmentController : Controller
     {
         private TeacherQualityReviewContext db = new TeacherQualityReviewContext();
@@ -97,11 +98,13 @@ namespace TeacherQualityReview.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Department department = db.Departments.Find(id);
+            db.Departments.Remove(department);
+            db.SaveChanges();
             if (department == null)
             {
                 return HttpNotFound();
             }
-            return View(department);
+            return RedirectToAction("Index");
         }
 
         // POST: /Department/Delete/5
@@ -122,6 +125,57 @@ namespace TeacherQualityReview.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        public ActionResult Class(string id)
+        {
+            var classes = db.Classes.Where(c => c.DepartmentID == id).ToList();
+            return View(classes);
+        }
+        public ActionResult Add()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Add([Bind(Include = "ID,ClassName,DepartmentID")] Class @class)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Classes.Add(@class);
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    if (db.Classes.Find(@class.ID) != null)
+                    {
+                        ViewBag.DepartmentID = db.Departments;
+                        Session["msgErrorExistClass"] = "Mã lớp bị trùng nhé";
+                    }
+                    return View();
+                }
+
+                return RedirectToAction("Class", new { id=@class.DepartmentID});
+            }
+
+            return View(@class);
+        }
+
+        public ActionResult DeleteClass(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Class clas= db.Classes.Find(id);
+            var depID = clas.DepartmentID;
+            db.Classes.Remove(clas);
+            db.SaveChanges();
+            if (clas == null)
+            {
+                return HttpNotFound();
+            }
+            return RedirectToAction("Class", new { id=depID});
         }
     }
 }

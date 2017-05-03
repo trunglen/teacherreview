@@ -10,6 +10,7 @@ using TeacherQualityReview.Models;
 
 namespace TeacherQualityReview.Controllers
 {
+    [SessionAuthorize]
     public class StatusController : Controller
     {
         private TeacherQualityReviewContext db = new TeacherQualityReviewContext();
@@ -97,11 +98,13 @@ namespace TeacherQualityReview.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Status status = db.Status.Find(id);
+            db.Status.Remove(status);
+            db.SaveChanges();
             if (status == null)
             {
                 return HttpNotFound();
             }
-            return View(status);
+            return RedirectToAction("Index");
         }
 
         // POST: /Status/Delete/5
@@ -123,5 +126,6 @@ namespace TeacherQualityReview.Controllers
             }
             base.Dispose(disposing);
         }
+      
     }
 }
