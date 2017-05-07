@@ -15,14 +15,14 @@
         foreach (var item in ViewBag.Students)
         {
             <div class="col-md-4 portfolio-item">
-                <a href="@Url.Action("MonHoc", new { id = item.ClassID })">
-                    <img class="img-responsive" src="http://image.prntscr.com/image/356ac701d9594013bd201a0b0ff0bc8d.jpg" alt="">
+                <a href="@Url.Action("MonHoc", new { id = item.SubjectID })">
+                    <img class="img-responsive" src="/Content/Home/monhoc.jpg" alt="">
                 </a>
-                <h3>
-                    <a href="@Url.Action("MonHoc", new { id = item.ClassID })">
-                        @item.ClassID
+                <h4 style="text-align:center;">
+                    <a href="@Url.Action("MonHoc", new { id = item.SubjectID })">
+                        @item.SubjectID
                     </a>
-                </h3>
+                </h4>
                 <p></p>
             </div>
         }

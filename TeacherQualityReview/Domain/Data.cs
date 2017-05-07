@@ -20,6 +20,7 @@ namespace TeacherQualityReview.Domain
 			menu.Add(new Navbar { Id = 6, nameOption = "Tạo trạng thái đánh giá", controller = "status", action = "Index", imageClass = "fa fa-edit fa-fw", status = true, isParent = false, parentId = 0 });
 			menu.Add(new Navbar { Id = 6, nameOption = "Quản lí giáo viên", controller = "teacher", action = "Index", imageClass = "fa fa-edit fa-fw", status = true, isParent = false, parentId = 0 });
 			menu.Add(new Navbar { Id = 6, nameOption = "Kết quả đánh giá", controller = "result", action = "Index", imageClass = "fa fa-edit fa-fw", status = true, isParent = false, parentId = 0 });
+			menu.Add(new Navbar { Id = 6, nameOption = "Sinh viên - môn học", controller = "studentsubject", action = "Index", imageClass = "fa fa-edit fa-fw", status = true, isParent = false, parentId = 0 });
             return menu.ToList();
         }
     }

@@ -59,7 +59,7 @@ namespace TeacherQualityReview.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ClassID = new SelectList(db.Classes, "ID", "ClassName", student.ClassID);
+            ViewBag.ClassID =  db.Classes;
             return View(student);
         }
 

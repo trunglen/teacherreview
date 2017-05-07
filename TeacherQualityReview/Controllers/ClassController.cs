@@ -120,8 +120,17 @@ namespace TeacherQualityReview.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Class @class = db.Classes.Find(id);
-            db.Classes.Remove(@class);
-            db.SaveChanges();
+            try
+            {
+                db.Classes.Remove(@class);
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                Session["delClassError"] = "Không thể xóa do ràng buộc dữ liệu";
+                return RedirectToAction("Index");
+            }
+           
             if (@class == null)
             {
                 return HttpNotFound();

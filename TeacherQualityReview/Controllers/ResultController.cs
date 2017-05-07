@@ -156,7 +156,21 @@ namespace TeacherQualityReview.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        public JsonResult SelectSubject(string id)
+        {
+            var query = from p in db.Results where p.SubjectID==id
+                        group p by p.ReviewSentenceID into g
+                        select new
+                        {
+                            name = g.FirstOrDefault().ReviewSentence.Content,
+                            amount = g.Sum(c=>c.Res),
+                            a = g.Average(c => c.Res),
+                            y = g.FirstOrDefault().ID
+                        };
 
+            return Json(query.ToList(),JsonRequestBehavior.AllowGet);
+          
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -165,5 +179,9 @@ namespace TeacherQualityReview.Controllers
             }
             base.Dispose(disposing);
         }
+    }
+    public class Report {
+        public string Content { get; set; }
+        public int Amount { get; set; }
     }
 }

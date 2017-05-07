@@ -97,9 +97,18 @@ namespace TeacherQualityReview.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            
             Department department = db.Departments.Find(id);
-            db.Departments.Remove(department);
-            db.SaveChanges();
+            try
+            {
+                db.Departments.Remove(department);
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                Session["delDepError"] = "Không thể xóa do ràng buộc dữ liệu";
+                return RedirectToAction("Index");
+            }
             if (department == null)
             {
                 return HttpNotFound();

@@ -4,7 +4,7 @@
 
 <div class="row">
     <div class="col-lg-12">
-        <h1 class="page-header">Dashboard</h1>
+        <h1 class="page-header">Trang chủ</h1>
     </div>
     <!-- /.col-lg-12 -->
 </div>
@@ -102,13 +102,13 @@
 <!-- /.row -->
 <div class="row">
     <div class="col-lg-12">
-        <div class="panel panel-default">
+        <div class="panel panel-default" style="display:none;">
             <div class="panel-heading">
-                <i class="fa fa-bar-chart-o fa-fw"></i> Giảng viên Nguyễn Văn Nam
+                <i class="fa fa-bar-chart-o fa-fw"></i> Area Chart Example
                 <div class="pull-right">
                     <div class="btn-group">
                         <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-                            Actions
+                            Chọn giảng viên
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu pull-right" role="menu">
@@ -135,13 +135,123 @@
             </div>
             <!-- /.panel-body -->
         </div>
-       
+        <!-- /.panel -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-bar-chart-o fa-fw"></i> Thống kê đánh giá của giảng viên
+                <div class="pull-right">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                            Chọn môn học
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu pull-right slSubject" role="menu">
+                           
+                           
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Nội dung</th>
+                                        <th>Tổng điểm</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody id="tblReport">
+                                    
+                                   
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.table-responsive -->
+                    </div>
+                    <!-- /.col-lg-4 (nested) -->
+                    <div class="col-lg-8">
+                        <div id="morris-bar-chart"></div>
+                    </div>
+                    <!-- /.col-lg-8 (nested) -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+        
     </div>
     <!-- /.col-lg-8 -->
-   
+    
 </div>
 <!-- /.row -->
+<script>
+    
+    function select(id) {
+        console.log(id);
+        $('#tblReport').html('');
+        var chart = Morris.Bar({
+            element: 'morris-bar-chart',
+            data: [0, 0],
+            xkey: 'y',
+            ykeys: ['a'],
+            labels: ['Điểm trung bình', 'đấ'],
+            hoverCallback: function (index, options, content, row) {
+                return row.name + " - Điểm TB:" + row.a;
+            },
+            hideHover: 'auto',
+            resize: true
+        });
+        $.ajax({
+            type: "Get",
+            url: '/result/SelectSubject/'+id,
+            datatype: "json",
+            async: false,// refer notes below
+            success: function (data) {
+                html = '';
+                window.report = data;
+                data.forEach(function (item, index) {
 
+                    html += ' <tr><td>' + item.name + '</td>' +
+                                '<td>' + item.amount + '</td>' +
+                                    '</tr>';
+                });
+                $('#tblReport').append(html);
+                chart.setData(data);
+            }
+        });
+    }
+ 
+</script>
 
 <script src="@Url.Content("~/bower_components/morrisjs/morris.min.js")"></script>
-<script src="@Url.Content("~/Scripts/morris-data.js")"></script>
+<script>
+    $('.aSubject').click(function () {
+        alert($('.aSubject').val());
+    });
+    $(function () {
+        $.ajax({
+            type: "Get",
+            url: '/subject/ListSubjectAjax',
+            datatype: "json",  // refer notes below
+            success: function (data) {
+                console.log(data);
+                html = '';
+                data.forEach(function (item, index) {
+                    html += ' <li>'
+                             + '<a href="#" value="' + item.ID + '" class="aSubject" onclick="select(\'' + item.ID + '\')">' + item.SubjectName + '</a>'
+                            + '</li>';
+                });
+                $('.slSubject').append(html);
+            }
+        });
+        
+
+    });
+
+</script>

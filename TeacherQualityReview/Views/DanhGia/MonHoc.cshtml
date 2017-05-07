@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_LayoutStudent.cshtml";
 }
 
-<h2>Đánh giá</h2>
+<h4>Đánh giá chất lượng giảng dạy của giáo viên @Session["tenGV"] cho môn học @Url.RequestContext.RouteData.Values["id"]</h4>
 
 <form>
     <table class="table">
@@ -83,7 +83,7 @@
                 <h4 class="modal-title">Thông báo</h4>
             </div>
             <div class="modal-body">
-                <p>Bạn đã đánh giá thành công.</p>
+                <p> Cảm ơn bạn đã đánh giá.</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

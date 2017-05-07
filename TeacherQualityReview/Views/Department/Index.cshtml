@@ -9,6 +9,11 @@
     <p>
         @Html.ActionLink("Tạo mới", "Create", null, new { @class = "btn btn-primary" })
     </p>
+    @if (Session["delDepError"] != null)
+    {
+        <div class="alert alert-danger" role="alert">@Session["delDepError"]</div>
+        Session["delDepError"] = null;
+    }
     <table class="table">
         <tr>
             <th>

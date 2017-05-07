@@ -9,11 +9,12 @@ namespace TeacherQualityReview.Models
 {
     public class Student
     {
-         [Required(ErrorMessage = "Nhập tên tài khoản của sinh viên")]
+        
         public string UserName{ get; set; }
          [Required(ErrorMessage = "Nhập mật khẩu của sinh viên")]
         public string Password { get; set; }
         [Key]
+        [Required(ErrorMessage = "Nhập mã sinh viên")]
         public string ID { get; set; }
          [Required(ErrorMessage = "Nhập tên sinh viên")]
         public string Name{ get; set; }

@@ -9,6 +9,11 @@
     <p>
         @Html.ActionLink("Tạo mới", "Create", null, new { @class = "btn btn-primary" })
     </p>
+                      @if (Session["delClassError"] != null)
+                      {
+                          <div class="alert alert-danger" role="alert">@Session["delClassError"]</div>
+                          Session["delClassError"] = null;
+                      }
     <table class="table">
         <tr>
             <th>
@@ -51,6 +56,7 @@
                     <p>Bạn có chắc muốn xóa.</p>
                 </div>
                 <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="delete2()">Đồng ý</button>s
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Đóng</button>
                 </div>
             </div>

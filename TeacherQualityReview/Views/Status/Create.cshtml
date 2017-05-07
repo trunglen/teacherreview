@@ -17,45 +17,46 @@
         @Html.ValidationSummary(true)
 
         <div class="form-group">
-            <div class="alert alert-danger" role="alert">  Notes: Trạng thái đánh giá cách nhau bởi dấu phảy Ví dụ: Tốt, Không tốt; Đúng, sai <=> điểm 2,1;1,0</div>
+            <div class="alert alert-success" role="alert" id="appends" style="display:none;">  </div>
 
         </div>
-        <div class="form-group">
-            @Html.Label("Điểm đánh giá", new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.Point, new { @class = "form-control", id = "txtPoint1" })
-                @Html.ValidationMessageFor(model => model.Point)
+        <div style="display:none;">
+            <div class="form-group">
+                @Html.Label("Điểm đánh giá", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.Point, new { @class = "form-control", id = "txtPoint1" })
+                    @Html.ValidationMessageFor(model => model.Point, String.Empty, new { @class = "label label-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Nội dung đánh giá", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.Content, new { @class = "form-control", id = "txtContent1" })
+                    @Html.ValidationMessageFor(model => model.Content, String.Empty, new { @class = "label label-danger" })
+                </div>
             </div>
         </div>
 
         <div class="form-group">
-            @Html.Label("Nội dung đánh giá", new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.Content, new { @class = "form-control", id = "txtContent1" })
-                @Html.ValidationMessageFor(model => model.Content)
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            <span class="control-label col-md-2">
+            <label class="control-label col-md-2">
                 Điểm
-            </span>
+            </label>
             <div class="col-md-10">
                 <input type="number" id="txtPoint" class="form-control" />
             </div>
         </div>
         <div class="form-group">
-            <span class="control-label col-md-2">
+            <label class="control-label col-md-2">
                 Nội dung
-            </span>
+            </label>
             <div class="col-md-10">
-                <input type="text" id="txtContent" class="form-control"/>
+                <input type="text" id="txtContent" class="form-control" />
             </div>
         </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <button id="btnCreate" class="btn btn-default" >Tạo trạng thái đánh giá</button>
+                <button id="btnCreate" class="btn btn-default">Tạo trạng thái đánh giá</button>
                 <input type="submit" value="Lưu" class="btn btn-default" />
             </div>
         </div>
@@ -69,19 +70,20 @@
         $('#btnCreate').click(function () {
             event.preventDefault();
             if (window.count == 0) {
-                window.statusPoint +=  $('#txtPoint').val();
+                window.statusPoint += $('#txtPoint').val();
                 window.statusContent += $('#txtContent').val();
             } else {
                 window.statusPoint += (',' + $('#txtPoint').val());
                 window.statusContent += (',' + $('#txtContent').val());
             }
-            
+            $('#appends').show();
+            $('#appends').append($('#txtContent').val() + '&nbsp;&nbsp;<span class="badge">' + $('#txtPoint').val() + '</span>&nbsp;&nbsp;&nbsp;');
             $('#txtPoint1').val(window.statusPoint);
             $('#txtContent1').val(window.statusContent);
             window.count++;
         })
     })
-    
+
 </script>
 <div>
     @Html.ActionLink("Danh sách trạng thái", "Index")

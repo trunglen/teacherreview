@@ -30,6 +30,7 @@
                     @Html.DisplayFor(modelItem => item.SubjectName)
                 </td>
                 <td>
+                    @Html.ActionLink("Tạo đánh giá", "Add", new { id = item.ID }) |
                     @Html.ActionLink("Sửa", "Edit", new { id = item.ID }) |
                     <a href="#" onclick="delete1('@item.ID')">Xóa</a>
                 </td>

@@ -1,0 +1,132 @@
+﻿    @{
+        ViewBag.Title = "Index";
+    }
+
+    <h2>Quản lí đánh giá</h2>
+
+    <p>
+        @Html.ActionLink("Tạo đánh giá", "Create", null, new { @class = "btn btn-primary" })
+    </p>
+
+ 
+    <div id="generate"></div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">Tạo đánh giá mới</div>
+        <div class="panel-body">
+            <div class="form-group">
+                @Html.Label("Mã trạng thái", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("StatusID", new SelectList(ViewBag.StatusID, "ID", "Content"), new { @class = "form-control slStatus" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Nội dung đánh giá", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <textarea class="form-control txtContent"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="button" value="Taọ" class="btn btn-default btnCreate" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Thông báo</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Bạn có chắc muốn xóa.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="delete2()">Đồng ý</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script>
+        function delete1(id) {
+            $('#myModal').modal('show');
+            window.id = id;
+        }
+        function delete2() {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("DeleteAjax", "reviewsentence")',
+                data: { id: window.id },
+                datatype: "json",  // refer notes below
+                success: function (data) {
+                    console.log(data);
+                    load();
+                }
+            })
+        }
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            load();
+        })
+        function load() {
+            event.preventDefault();
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("ListAjax", "reviewsentence")',
+                data: { id: '@Url.RequestContext.RouteData.Values["id"]' },
+                datatype: "json",  // refer notes below
+                success: function (data) {
+                    console.log(data);
+                    var html = ' <table class="table">' +
+                '<tr>' +
+                    '<th width="15%">' +
+                        'Trạng thái đánh giá' +
+                   ' </th>' +
+                                  ' <th>' +
+                        'Nội dung đánh giá' +
+                    '</th>' +
+                    '<th></th>' +
+                '</tr>';
+                    data.forEach(function (item, index) {
+                        console.log(item);
+                        html += '<tr><td>' + item.Status.Content + '</td><td>' + item.Content + '</td><td><a href="/Reviewsentence/edit/' + item.ID + '">Sửa</a>|<a href="#" onclick="delete1('+item.ID+')">Xóa</a></td></tr>';
+                    });
+                    html += '</table>';
+                    $('#generate').html(html);
+
+                }
+            });
+        }
+        $('.view').click(function (event) {
+            load();
+        });
+        $('.btnCreate').click(function () {
+            event.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("CreateReview", "reviewsentence")',
+                data: {
+                    StatusID: $('.slStatus').val(),
+                    SubjectID: '@Url.RequestContext.RouteData.Values["id"]',
+                    Content: $('.txtContent').val(),
+                },
+                datatype: "json",  // refer notes below
+                success: function (data) {
+                    load();
+
+                }
+            });
+        });
+    </script>

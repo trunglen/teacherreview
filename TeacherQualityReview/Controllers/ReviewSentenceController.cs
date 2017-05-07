@@ -116,7 +116,14 @@ namespace TeacherQualityReview.Controllers
             }
             return RedirectToAction("Index");
         }
-
+        public JsonResult DeleteAjax(int? id)
+        {
+     
+            ReviewSentence reviewsentence = db.ReviewSentences.Find(id);
+            db.ReviewSentences.Remove(reviewsentence);
+            db.SaveChanges();
+            return Json("OK", JsonRequestBehavior.AllowGet);
+        }
         // POST: /ReviewSentence/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -139,7 +146,8 @@ namespace TeacherQualityReview.Controllers
         [HttpPost]
         public JsonResult ListAjax(string id)
         {
-            return Json(db.ReviewSentences.Where(c=>c.SubjectID==id).ToList(), JsonRequestBehavior.AllowGet);
+            var reviewsentences = db.ReviewSentences.Where(c => c.SubjectID == id).Include(r => r.Status).Include(r => r.Subject);
+            return Json(reviewsentences.ToList(), JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         public JsonResult CreateReview(string Content,int StatusID,string SubjectID)

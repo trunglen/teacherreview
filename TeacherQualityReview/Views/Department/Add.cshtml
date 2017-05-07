@@ -20,7 +20,7 @@
             @Html.Label("Mã lớp", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.TextBoxFor(model => model.ID, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ID)
+                @Html.ValidationMessageFor(model => model.ID, String.Empty, new { @class = "label label-danger" })
             </div>
         </div>
 
@@ -28,7 +28,7 @@
             @Html.Label("Tên lớp", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.TextBoxFor(model => model.ClassName, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ClassName)
+                @Html.ValidationMessageFor(model => model.ClassName, String.Empty, new { @class = "label label-danger" })
             </div>
         </div>
 

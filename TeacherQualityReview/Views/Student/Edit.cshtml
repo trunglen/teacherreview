@@ -21,7 +21,7 @@
             @Html.Label("Mật khẩu", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                @Html.TextBoxFor(model => model.Password, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Password)
+                @Html.ValidationMessageFor(model => model.Password, String.Empty, new { @class = "label label-danger" })
             </div>
         </div>
 
@@ -29,7 +29,7 @@
             @Html.Label("Họ tên", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Name)
+                @Html.ValidationMessageFor(model => model.Name, String.Empty, new { @class = "label label-danger" })
             </div>
         </div>
 
@@ -37,7 +37,7 @@
            @Html.Label("Ngày sinh", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.TextBoxFor(model => model.DateOfBirth, new { @class = "form-control datepicker", placeholder = "Chọn ngày..." })
-                @Html.ValidationMessageFor(model => model.DateOfBirth)
+                @Html.ValidationMessageFor(model => model.DateOfBirth, String.Empty, new { @class = "label label-danger", id = "datepicker" })
             </div>
         </div>
 

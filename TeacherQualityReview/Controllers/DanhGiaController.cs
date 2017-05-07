@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 using TeacherQualityReview.Models;
 
 namespace TeacherQualityReview.Controllers
@@ -60,14 +61,16 @@ namespace TeacherQualityReview.Controllers
             {
                 return RedirectToAction("Index");
             }
+            var tem = Session["user"].ToString();
             var temp = db.ReviewSentences.Where(c => c.SubjectID.Equals(id)).ToList();
+            Session["tenGV"] = db.Subjects.Where(c=>c.ID==id).Include(c => c.Teacher).FirstOrDefault().Teacher.TeacherName;
             int[] sel = new int[temp.Count];
             for (int i = 0; i < temp.Count; i++)
             {
                 sel[i] = 1;
             }
 
-            if (db.Results.Where(c => c.SubjectID == id).FirstOrDefault() != null)
+            if (db.Results.Where(c => c.SubjectID == id&&c.StudentID==tem).FirstOrDefault() != null)
             {
                 var temp2 = db.Results.Where(c => c.SubjectID == id).ToList();
                 for (int i = 0; i < temp2.Count(); i++)
@@ -86,7 +89,8 @@ namespace TeacherQualityReview.Controllers
           
             if (db.Results.Where(c => c.SubjectID == SubjectID).FirstOrDefault() != null)
             {
-                var temp2 = db.Results.Where(c => c.SubjectID == SubjectID).ToList();
+                var tem = Session["user"].ToString();
+                var temp2 = db.Results.Where(c => c.SubjectID == SubjectID&&c.StudentID==tem).ToList();
                 for (int i = 0; i < temp2.Count(); i++)
                 {
                     Result result = db.Results.Find(temp2[i].ID);

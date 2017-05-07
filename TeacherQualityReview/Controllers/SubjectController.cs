@@ -21,7 +21,19 @@ namespace TeacherQualityReview.Controllers
             var subjects = db.Subjects.Include(s => s.Teacher);
             return View(subjects.ToList());
         }
-
+        public JsonResult ListSubjectAjax()
+        {
+            var subjects = db.Subjects.ToList();
+            return Json(subjects,JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult Add(string id)
+        {
+            var reviews = db.ReviewSentences.Where(c => c.SubjectID == id).ToList();
+            ViewBag.StatusID = db.Status;
+            ViewBag.SubjectID = db.Subjects;
+            ViewBag.ReviewSentences = db.ReviewSentences.ToList();
+            return View(reviews);
+        }
         // GET: /Subject/Details/5
         public ActionResult Details(string id)
         {
@@ -135,5 +147,22 @@ namespace TeacherQualityReview.Controllers
             }
             base.Dispose(disposing);
         }
+        [HttpPost]
+        public JsonResult ListAjax(string id)
+        {
+            return Json(db.ReviewSentences.Where(c => c.SubjectID == id).ToList(), JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult CreateReview(string Content, int StatusID, string SubjectID)
+        {
+            ReviewSentence rs = new ReviewSentence();
+            rs.StatusID = StatusID;
+            rs.SubjectID = SubjectID;
+            rs.Content = Content;
+            db.ReviewSentences.Add(rs);
+            db.SaveChanges();
+            return Json("OK", JsonRequestBehavior.AllowGet);
+        }
     }
+
 }
