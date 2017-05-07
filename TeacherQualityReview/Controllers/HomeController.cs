@@ -3,14 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TeacherQualityReview.Models;
 
 namespace TeacherQualityReview.Controllers
 {
     [SessionAuthorize]
     public class HomeController : Controller
     {
+        private TeacherQualityReviewContext db = new TeacherQualityReviewContext();
         public ActionResult Index()
         {
+            ViewBag.studentCount = db.Students.Count();
+            ViewBag.subjectCount = db.Subjects.Count();
+            ViewBag.teacherCount = db.Teachers.Count();
+            ViewBag.classCount = db.Classes.Count();
             return View();
         }
 
