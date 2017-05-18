@@ -1,0 +1,33 @@
+﻿@model TeacherQualityReview.Models.Subject
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Quản lí môn học</h2>
+
+<h3>Bạn có chắc muốn xóa?</h3>
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+           Môn học
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubjectName)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Xóa" class="btn btn-default" /> |
+            @Html.ActionLink("Danh sách môn học", "Index")
+        </div>
+    }
+</div>

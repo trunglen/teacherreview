@@ -165,7 +165,7 @@ namespace TeacherQualityReview.Controllers
                             name = g.FirstOrDefault().ReviewSentence.Content,
                             amount = g.Sum(c=>c.Res),
                             a = g.Average(c => c.Res),
-                            y = g.FirstOrDefault().ID
+                            y = g.FirstOrDefault().ID,
                         };
 
             return Json(query.ToList(),JsonRequestBehavior.AllowGet);

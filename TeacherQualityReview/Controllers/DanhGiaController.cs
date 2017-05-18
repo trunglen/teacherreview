@@ -72,7 +72,7 @@ namespace TeacherQualityReview.Controllers
 
             if (db.Results.Where(c => c.SubjectID == id&&c.StudentID==tem).FirstOrDefault() != null)
             {
-                var temp2 = db.Results.Where(c => c.SubjectID == id).ToList();
+                var temp2 = db.Results.Where(c => c.SubjectID == id && c.StudentID == tem).ToList();
                 for (int i = 0; i < temp2.Count(); i++)
                 {
                     sel[i] = temp2[i].Res;

@@ -52,7 +52,18 @@ namespace TeacherQualityReview.Controllers
             if (ModelState.IsValid)
             {
                 db.Departments.Add(department);
+                try{
                 db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    if (db.Departments.Find(department.ID) != null)
+                    {
+                        
+                        Session["msgErrorExistClass"] = "Mã khoa bị trùng nhé";
+                    }
+                    return View();
+                }
                 return RedirectToAction("Index");
             }
 

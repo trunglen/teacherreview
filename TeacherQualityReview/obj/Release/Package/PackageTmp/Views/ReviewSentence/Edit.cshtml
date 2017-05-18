@@ -1,0 +1,58 @@
+﻿@model TeacherQualityReview.Models.ReviewSentence
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Quản lí đánh giá</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Sửa đánh giá</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.ID)
+
+        <div class="form-group">
+            @Html.Label("Nội dung đánh giá", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Content, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Content)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Trạng thái", "StatusID", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("StatusID", new SelectList(ViewBag.StatusID, "ID", "Content"), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.StatusID)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Mã môn", "SubjectID", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("SubjectID", new SelectList(ViewBag.SubjectID, "ID", "SubjectName"), new { @class = "form-control subject" })
+                @Html.ValidationMessageFor(model => model.SubjectID)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Lưu" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Danh sách", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

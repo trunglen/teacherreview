@@ -1,0 +1,76 @@
+﻿@model TeacherQualityReview.Models.Student
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Quản lí sinh viên</h2>
+
+<script type="text/javascript">
+    $(function () { // will trigger when the document is ready
+        $('.datepicker').datepicker(); //Initialise any date pickers
+    });
+</script>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Tạo mới</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.Label("Mã sinh viên", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.ID, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ID, String.Empty, new { @class = "label label-danger" })
+            </div>
+        </div>
+
+     
+
+        <div class="form-group">
+            @Html.Label("Mật khẩu", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Password, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Password, String.Empty, new { @class = "label label-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Họ tên", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Name, new { @class = "form-control"})
+                @Html.ValidationMessageFor(model => model.Name, String.Empty, new { @class = "label label-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Ngày sinh", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.DateOfBirth, new { @class = "form-control datepicker", placeholder = "Chọn ngày..." })
+                @Html.ValidationMessageFor(model => model.DateOfBirth, String.Empty, new { @class = "label label-danger" })
+            </div>
+        </div>
+
+        <div class="form-group" style="display:none;">
+            @Html.Label("Lớp", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.ClassID, new { @class = "form-control", @Value = Url.RequestContext.RouteData.Values["id"] })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Tạo" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

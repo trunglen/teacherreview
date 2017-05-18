@@ -1,0 +1,70 @@
+﻿@model IEnumerable<TeacherQualityReview.Models.Status>
+
+    @{
+        ViewBag.Title = "Index";
+    }
+
+    <h2>Quản lí trạng thái đánh giá</h2>
+
+    <p>
+        @Html.ActionLink("Tạo trạng thái", "Create", null, new { @class = "btn btn-primary" })
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                Điểm đánh giá
+            </th>
+            <th>
+                Nội dung đánh giá
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Point)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Content)
+                </td>
+                <td>
+                    @Html.ActionLink("Sửa", "Edit", new { id = item.ID }) |
+
+                    <a href="#" onclick="delete1('@item.ID')">Xóa</a>
+                </td>
+            </tr>
+        }
+
+    </table>
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Thông báo</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Bạn có chắc muốn xóa.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="delete2()">Đồng ý</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script>
+        function delete1(id) {
+            $('#myModal').modal('show');
+            window.id = id;
+        }
+        function delete2() {
+            window.id = id;
+            window.location.href = 'status/delete/' + window.id;
+        }
+    </script>

@@ -1,0 +1,56 @@
+﻿@model TeacherQualityReview.Models.Subject
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Quản lí môn học</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Chỉnh sửa</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.ID)
+
+        <div class="form-group">
+            @Html.Label("Tên bộ môn", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.SubjectName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SubjectName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Giảng viên",  new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("TeacherID", new SelectList(ViewBag.TeacherID, "ID", "TeacherName"), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TeacherID)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("Bộ môn", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("SubgroupID", new SelectList(ViewBag.SubgroupID, "ID", "SubgroupName"), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SubgroupID)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Lưu" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Danh sách", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

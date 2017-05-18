@@ -54,7 +54,18 @@ namespace TeacherQualityReview.Controllers
             if (ModelState.IsValid)
             {
                 db.Teachers.Add(teacher);
+                try{
                 db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    if (db.Teachers.Find(teacher.ID) != null)
+                    {
+                        ViewBag.SubgroupID = db.Subgroups;
+                        Session["msgErrorExistClass"] = "Mã giảng viên bị trùng nhé";
+                    }
+                    return View();
+                }
                 return RedirectToAction("Index");
             }
 
@@ -103,8 +114,16 @@ namespace TeacherQualityReview.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Teacher teacher = db.Teachers.Find(id);
+            try
+            {
             db.Teachers.Remove(teacher);
             db.SaveChanges();
+             }
+            catch (Exception e)
+            {
+                Session["delDepError"] = "Không thể xóa do ràng buộc dữ liệu";
+                return RedirectToAction("Index");
+            }
             if (teacher == null)
             {
                 return HttpNotFound();

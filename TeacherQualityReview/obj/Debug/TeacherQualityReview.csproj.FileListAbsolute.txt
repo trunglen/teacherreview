@@ -31,3 +31,5 @@ c:\users\luutr\onedrive\documents\visual studio 2013\Projects\TeacherQualityRevi
 C:\Users\luutr\onedrive\documents\visual studio 2013\Projects\TeacherQualityReview\TeacherQualityReview\bin\Excel.dll
 C:\Users\luutr\onedrive\documents\visual studio 2013\Projects\TeacherQualityReview\TeacherQualityReview\bin\ICSharpCode.SharpZipLib.dll
 C:\Users\luutr\onedrive\documents\visual studio 2013\Projects\TeacherQualityReview\TeacherQualityReview\bin\Excel.pdb
+C:\Users\luutr\onedrive\documents\visual studio 2013\Projects\TeacherQualityReview\TeacherQualityReview\obj\Debug\TeacherQualityReview.Migrations.InitialCreate.resources
+C:\Users\luutr\onedrive\documents\visual studio 2013\Projects\TeacherQualityReview\TeacherQualityReview\obj\Debug\TeacherQualityReview.csproj.GenerateResource.Cache

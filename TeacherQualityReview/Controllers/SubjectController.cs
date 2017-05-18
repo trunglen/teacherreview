@@ -67,7 +67,19 @@ namespace TeacherQualityReview.Controllers
             if (ModelState.IsValid)
             {
                 db.Subjects.Add(subject);
+                try{
                 db.SaveChanges();
+                 }
+                catch (Exception e)
+                {
+                    if (db.Subjects.Find(subject.ID) != null)
+                    {
+                        ViewBag.TeacherID = db.Teachers;
+                        ViewBag.SubgroupID = db.Subgroups;
+                        Session["msgErrorExistClass"] = "Mã môn học bị trùng nhé";
+                    }
+                    return View();
+                }
                 return RedirectToAction("Index");
             }
 
@@ -119,8 +131,16 @@ namespace TeacherQualityReview.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Subject subject = db.Subjects.Find(id);
+            try
+            {
             db.Subjects.Remove(subject);
             db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                Session["delDepError"] = "Không thể xóa do ràng buộc dữ liệu";
+                return RedirectToAction("Index");
+            }
             if (subject == null)
             {
                 return HttpNotFound();
@@ -150,6 +170,7 @@ namespace TeacherQualityReview.Controllers
         [HttpPost]
         public JsonResult ListAjax(string id)
         {
+            
             return Json(db.ReviewSentences.Where(c => c.SubjectID == id).ToList(), JsonRequestBehavior.AllowGet);
         }
         [HttpPost]

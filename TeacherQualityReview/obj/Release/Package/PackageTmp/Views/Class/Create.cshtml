@@ -1,0 +1,85 @@
+﻿@model TeacherQualityReview.Models.Class
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Quản lí lớp</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Tạo mới</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.Label("Mã lớp", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.ID, new { @class = "form-control" })
+                <span for="ID" class="">@ViewBag.existMessage</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Tên lớp", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.ClassName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ClassName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Khoa",new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("DepartmentID", new SelectList(ViewBag.DepartmentID, "ID", "DepartmentName"), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.DepartmentID)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Tạo" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Danh sách lớp học", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+@if (Session["msgErrorExistClass"] != null)
+{
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Thông báo</h4>
+                </div>
+                <div class="modal-body">
+                    <p>@Session["msgErrorExistClass"].</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $('#myModal').modal('show');
+        })
+    </script>
+    Session["msgErrorExistClass"] = null;
+}

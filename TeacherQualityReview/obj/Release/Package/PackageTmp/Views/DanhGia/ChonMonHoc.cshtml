@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "ChonMonHoc";
+    Layout = "~/Views/Shared/_LayoutStudent.cshtml";
+}
+
+<h2>Chọn môn học để đánh giá</h2>
+
+<!-- /.row -->
+<!-- Projects Row -->
+
+<div class="row">
+    @if (Session["user"] != null)
+    {
+        foreach (var item in ViewBag.Students)
+        {
+            <div class="col-md-4 portfolio-item">
+                <a href="@Url.Action("MonHoc", new { id = item.SubjectID })">
+                    <img class="img-responsive" src="/Content/Home/monhoc.jpg" alt="">
+                </a>
+                <h4 style="text-align:center;">
+                    <a href="@Url.Action("MonHoc", new { id = item.SubjectID })">
+                        @item.SubjectID
+                    </a>
+                </h4>
+                <p></p>
+            </div>
+        }
+    }
+
+</div>

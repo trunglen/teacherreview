@@ -1,0 +1,57 @@
+﻿@model TeacherQualityReview.Models.Student
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Quản lí sinh viên</h2>
+
+<h3>Bạn có thật sự muốn xóa sinh viên này?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+  
+
+        <dt>
+           Tên đăng nhập
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+
+        <dt>
+            Mật khẩu
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Password)
+        </dd>
+
+        <dt>
+           Họ tên
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+           Ngày sinh
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateOfBirth)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Xóa" class="btn btn-default" /> |
+            @Html.ActionLink("Danh sách", "Index")
+        </div>
+    }
+</div>

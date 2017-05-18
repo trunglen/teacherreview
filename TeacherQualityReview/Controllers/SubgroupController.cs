@@ -54,7 +54,18 @@ namespace TeacherQualityReview.Controllers
             if (ModelState.IsValid)
             {
                 db.Subgroups.Add(subgroup);
+                try{
                 db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    if (db.Subgroups.Find(subgroup.ID) != null)
+                    {
+                        ViewBag.DepartmentID = db.Departments;
+                        Session["msgErrorExistClass"] = "Mã bộ môn bị trùng nhé";
+                    }
+                    return View();
+                }
                 return RedirectToAction("Index");
             }
 

@@ -1,0 +1,188 @@
+/*
+
+RESPONSTABLE 2.0 by jordyvanraaij
+  Designed mobile first!
+
+If you like this solution, you might also want to check out the 1.0 version:
+  https://gist.github.com/jordyvanraaij/9069194
+
+*/
+.responstable {
+  margin: 1em 0;
+  width: 100%;
+  overflow: hidden;
+  background: #FFF;
+  color: #024457;
+  border-radius: 10px;
+  border: 1px solid #167F92;
+}
+.responstable tr {
+  border: 1px solid #D9E4E6;
+}
+.responstable tr:nth-child(odd) {
+  background-color: #EAF3F3;
+}
+.responstable th {
+  display: none;
+  border: 1px solid #FFF;
+  background-color: #3B99A6;
+    /*#167F92*/
+  /*#167F92*/
+  color: #FFF;
+  padding: 1em;
+}
+.responstable th:first-child {
+  display: table-cell;
+  text-align: center;
+}
+.responstable th:nth-child(2) {
+  display: table-cell;
+}
+.responstable th:nth-child(2) span {
+  display: none;
+}
+.responstable th:nth-child(2):after {
+  content: attr(data-th);
+}
+@media (min-width: 480px) {
+  .responstable th:nth-child(2) span {
+    display: block;
+  }
+  .responstable th:nth-child(2):after {
+    display: none;
+  }
+}
+.responstable td {
+  display: block;
+  word-wrap: break-word;
+  max-width: 7em;
+}
+.responstable td:first-child {
+  display: table-cell;
+  text-align: center;
+  border-right: 1px solid #D9E4E6;
+}
+@media (min-width: 480px) {
+  .responstable td {
+    border: 1px solid #D9E4E6;
+  }
+}
+.item-giaovien {
+    width: 20%;padding:0 10px
+}
+/*.item-giaovien2 {
+    width: 12.5%;
+}*/
+.item-giaovien .thumbnail{
+    box-shadow: 1px 5px 9px #333;
+    line-height: 1;
+}
+.title-page{float: left; font-size: 18px;padding: 5px 10px 10px 15px; border-top-left-radius:5px;border-top-right-radius:5px;}
+.mod-cbv {
+    margin-left:-10px;
+    margin-right:-10px;
+    display: block;
+    width: 100%;
+    overflow: hidden;
+
+}
+.mod-cbv2 {
+   
+}
+.item-giaovien2{padding: 0 5px}
+.item-giaovien2 .thumbnail {overflow: hidden;     margin-bottom: 10px;}
+.item-giaovien2 .thumbnail .style_prevu_kit{width: 40%;
+    height: 70px;
+    float: left;
+    display: block;
+    padding-bottom: 10px;}
+.item-giaovien2 .thumbnail .caption{float: left; width:60%}
+.item-giaovien2 .thumbnail .text-center{font-size: 12px;line-height: 1.5}
+    
+.responstable th, .responstable td {
+  text-align: left;
+  margin: .5em 1em;
+}
+@media (min-width: 480px) {
+  .responstable th, .responstable td {
+    display: table-cell;
+    padding: 1em;
+  }
+}
+hr-foot{height:5px; color:#008081}
+.img-gv-tbl{width: 20%}
+body {
+ 
+  font-family: Arial, sans-serif;
+  color: #024457;
+  background: #f2f2f2;
+}
+
+h1 {
+  font-family: Verdana;
+font-weight: normal;
+color: #fff;
+background: #167F92;
+
+}
+h1 span {
+  color: #167F92;
+}
+
+.lg-main-ct-gv{width: 100%; overflow: hidden; padding: 0; margin:10px 0px 10px 0;}
+.content-left-cbv{background: #fff; overflow: hidden}
+.left-img-gv-tbl img{width: 100%; height: 198px; margin:20px 0}
+.right-img-gv{margin-top:20px;}
+.right-img-gv li{margin:10px 0;}
+.right-img-gv li .sp_intro-cbv{font-weight: bold;    font-size: 13px; width: 200px; overflow:hidden; float: right; margin-right:150px}
+.menu-siderbar-ct{margin-right:-15px;    padding-left: 8px;}
+.lg-main-ct-gv p{}
+.mota-cbv{width: 100%; display:block; overflow: hidden; background:#fff; padding: 10px 20px; margin: 20px 0;}
+.title-h3{
+    float: left;background:url(/Content/Home/images/default/bg_mon.gif);background-repeat:no-repeat; background-position:left;
+    padding:5px;margin:0;
+    border-top-left-radius: 5px;border-top-right-radius: 7px;
+    width:100%;color: #fff; font-size:18px 
+}
+.title-h3 span{
+    padding-left:15px;
+}
+.content-left-cbv{padding-left: 0;border-top-left-radius: 5px;border-top-right-radius: 5px;}
+.sidebar-right{padding-right: 0; border-top-left-radius: 5px; border-top-right-radius: 7px;background:#48A4AB}
+ .sibar-right-one{margin-top: 5px;}
+
+.btn-giaovien
+{
+    background: #48A4AB;
+    width: 150px;
+}
+.footer-d{
+    border-top: 5px solid #C9C9C9;
+}
+.lopkhac-title{
+padding:5px;
+border-top-left-radius: 5px; 
+border-top-right-radius: 5px;
+font-size: 18px;
+float:left;
+}
+.marginTopLop{
+    margin-top:10px;
+}
+.dong-ho-nguoc {
+    border-radius: 25px;
+    border: 2px solid #73AD21;
+    padding: 20px; 
+    width: 500px;
+    padding-top:50px;
+    padding-bottom: 50px;
+    background: #fff;
+    height: auto; 
+   margin-top : 15px;
+    text-align: center;
+    font-size:50px;
+   color: black;
+}
+.dong-ho-nguoc label{
+   
+}

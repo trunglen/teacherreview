@@ -1,0 +1,115 @@
+@charset "utf-8";
+/* CSS Document */
+ul {
+list-style: none;
+margin: 0; padding: 0
+}
+ul#topnav {
+float: left;
+width:100%;
+position: relative;
+height: 39px;
+/*behavior: url(whateverhover.htc);*/
+
+}
+
+ul#topnav li  {
+float: left;
+height: 39px;
+padding: 0px;
+background:url(../imagemenu/line_bar.gif) no-repeat right center; 
+}
+
+ul#topnav li a {
+    padding:0px 15px;
+    color: #FFFFFF;
+    display: block;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size:11px;
+    line-height:39px;
+    font-family: Arial,Verdana,Helvetica;
+}
+ul#topnav li a:hover{text-decoration:underline;}
+
+
+ul#topnav li:hover {background:url(../imagemenu/line_bar.gif) no-repeat right center;
+}
+
+ul#topnav li ul.children {
+float: left;
+height: 39px;
+line-height: 39px;
+padding: 0px;
+position: absolute;
+left:-68px; top: 39px;
+display: none;
+color: white;
+min-width:100%;
+padding-top:10px;
+}
+
+ul#topnav li ul.children li {
+background:url(../imagemenu/line_subbar.gif) no-repeat right center;
+}
+
+
+ul#topnav li:hover ul {
+display: block;
+}
+
+ul#topnav li ul a {
+display: inline;
+font-family:Arial,Verdana,Helvetica;
+color:#636363;
+font-weight:bold;
+font-size:11px;
+padding:0px 15px;
+}
+ul#topnav li ul a:hover {
+color:#ff9b01;
+text-decoration:none;
+}
+
+/*Cho hien menu khi o trang chu*/
+ul#topnav li ul.navhome 
+{
+float: left;
+height: 39px;
+line-height: 39px;
+position: absolute;
+left:-68px; top: 39px;
+display: block;
+color: red;
+min-width:100%;
+padding-top:10px;
+	width: 969px;
+	padding-left: 0px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+}
+ul#topnav:hover li ul.navhome 
+{
+float: left;
+height: 39px;
+line-height: 39px;
+padding: 0px;
+position: absolute;
+left:-68px; top: 39px;
+display: none;
+color: red;
+min-width:100%;
+padding-top:10px;
+text-transform:none !important;
+}
+
+
+
+ul#topnav li ul.navhome li 
+{
+background: #ffffff;/*url(../imagemenu/line_subbar.gif) no-repeat right center;*/
+}
+
+/**/

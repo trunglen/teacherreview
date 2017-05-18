@@ -1,0 +1,66 @@
+﻿@model TeacherQualityReview.Models.Student
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Quản lí sinh viên</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Chỉnh sửa</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.ID)
+
+        <div class="form-group">
+            @Html.Label("Mật khẩu", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+               @Html.TextBoxFor(model => model.Password, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Password, String.Empty, new { @class = "label label-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Họ tên", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Name, String.Empty, new { @class = "label label-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+           @Html.Label("Ngày sinh", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.DateOfBirth, new { @class = "form-control datepicker", placeholder = "Chọn ngày..." })
+                @Html.ValidationMessageFor(model => model.DateOfBirth, String.Empty, new { @class = "label label-danger", id = "datepicker" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Lớp", "ClassID", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+               @Html.DropDownList("ClassID", new SelectList(ViewBag.ClassID, "ID", "ClassName"), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ClassID)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Danh sách sinh viên", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
